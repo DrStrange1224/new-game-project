@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://sv4s88imwno2"]
+
+[node name="menu" type="Node2D" unique_id=401153999]
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1227395525]
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
