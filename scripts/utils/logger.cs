@@ -1,42 +1,37 @@
 using System;
 using System.IO;
+using System.Text;
+using Godot;
 
 public class Logger {
-    public struct Config {
-        public string filePath = "";
-        public string fileName = "";
-        public bool isRollback = false;
-        public int rollbackCount = 0;
+    public readonly struct Config {
+        public readonly string filePath;
+        public readonly string fileName;
 
-        public Config(string filePath, string fileName, int rollbackCount) {
+        public Config(string filePath, string fileName) {
             this.filePath = filePath;
             this.fileName = fileName;
-            if (rollbackCount <= 0) {
-                rollbackCount = 0;
-                isRollback = false;
-            }
-            else {
-                isRollback = true;
-            }
         }
     }
 
-    private Config _config;
+    public readonly Config config;
+    private DirectoryInfo _logsDirectory;
+    private StreamWriter _streamWriter;
+    private Encoding encoding = new UTF8Encoding(true);
 
     public Logger(Config config) {
-        ThisConfig = config;
-        loadConfig();
+        this.config = config;
+        _logsDirectory = Directory.CreateDirectory(this.config.filePath);
+        GD.Print($"{_logsDirectory.FullName}\\{config.fileName}");
+        _streamWriter = new StreamWriter($"{_logsDirectory.FullName}\\{config.fileName}");
     }
 
-    public Config ThisConfig {
-        get { return _config; }
-        set {
-            //TODO checks
-            _config = value;
-        }
+    public void Log(string message) {
+        _streamWriter.WriteLine(message);
+        _streamWriter.Flush();
     }
 
-    private void loadConfig() { }
-
-    public void Log(string message) { }
+    ~Logger() {
+        _streamWriter.Close();
+    }
 }

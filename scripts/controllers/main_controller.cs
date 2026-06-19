@@ -12,6 +12,10 @@ public partial class main_controller : Node {
     }
 
     public void setupLogger() {
-        logger = new Logger();
+        Logger.Config config = new(
+            LOG_PATH,
+            LOG_NAME
+        );
+        logger = new Logger(config);
     }
 }
