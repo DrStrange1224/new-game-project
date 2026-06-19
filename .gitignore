@@ -19,4 +19,13 @@ export_credentials.cfg
 data_*/
 mono_crash.*.json
 
+# VSCode files
+.vscode/
+.config/
+
+# Logging files
 logs/
+
+# Editor configs
+.csharpierrc
+.editorconfig
