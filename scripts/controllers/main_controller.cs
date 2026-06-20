@@ -5,6 +5,10 @@ public partial class main_controller : Node {
     private const string LOG_NAME = "log.log";
     private Logger logger;
 
+    public override void _EnterTree() {
+        base._EnterTree();
+    }
+
     public override void _Ready() {
         setupLogger();
         logger.Log("Init log");

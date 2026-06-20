@@ -1,43 +1,43 @@
 {
     "version": "2.0.0",
     "configurations": [
+        //Run editor
         {
-            "name": "Play in Editor",
-            "type": "godot-mono",
-            "mode": "playInEditor",
-            "request": "launch"
-        },
-        {
-            "name": "Launch",
-            "type": "godot-mono",
+            "name": "Editor",
+            "type": "coreclr",
             "request": "launch",
-            "mode": "executable",
-            "preLaunchTask": "build",
-            "executable": "D:/godot/Godot_v4.7-stable_mono_win64.exe",
-            "executableArguments": [
-                "--path",
-                "${workspaceRoot}"
-            ]
+            "program": "${config:cur.godotPath}",
+            "args": [ "--editor", "--path", "${workspaceFolder}" ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "preLaunchTask": "build"
         },
+
+        //Release mode
         {
-            "name": "Launch (Select Scene)",
-            "type": "godot-mono",
+            "name": "Launch Project",
+            "type": "coreclr",
             "request": "launch",
-            "mode": "executable",
-            "preLaunchTask": "build",
-            "executable": "D:/godot/Godot_v4.7-stable_mono_win64.exe",
-            "executableArguments": [
-                "--path",
-                "${workspaceRoot}",
-                "${command:SelectLaunchScene}"
-            ]
+            "program": "${config:cur.godotPath}",
+            "args": [ "--path", "${workspaceFolder}" ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "preLaunchTask": "build"
         },
+
+        //Debug mode
         {
-            "name": "Attach",
-            "type": "godot-mono",
-            "request": "attach",
-            "address": "localhost",
-            "port": 23685
-        }
+            "name": "Launch Project (Debug)",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${config:cur.godotPath}",
+            "args": [ "--path", "${workspaceFolder}", "--debug" ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "preLaunchTask": "build"
+        },
     ]
 }

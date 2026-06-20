@@ -1,16 +1,13 @@
 {
     "version": "2.0.0",
     "tasks": [
+        //Builds project
         {
             "label": "build",
-            "command": "D:/godot/Godot_v4.7-stable_mono_win64.exe",
+            "command": "dotnet",
             "type": "process",
             "args": [
-                "--build-solutions",
-                "--path",
-                "${workspaceRoot}",
-                "--no-window",
-                "-q"
+                "build"
             ],
             "problemMatcher": "$msCompile"
         }

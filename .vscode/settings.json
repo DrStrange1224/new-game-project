@@ -2,5 +2,9 @@
     "[csharp]":{
         "editor.defaultFormatter": "ms-dotnettools.csharp",
         "editor.formatOnSave": true
-    }
+    },
+
+    //My settings
+    "cur.godotPath": "D:/godot/Godot_v4.7-stable_mono_win64_console.exe",
+    "godotTools.editorPath.godot4": "d:\\godot\\Godot_v4.7-stable_mono_win64.exe"
 }
