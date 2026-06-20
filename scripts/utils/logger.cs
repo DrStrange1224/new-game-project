@@ -1,23 +1,10 @@
 using System;
 using System.IO;
 
+namespace utils;
+
 public class Logger
 {
-    public class Config
-    {
-        private string filePath;
-        private string fileName;
-        private bool isRollback;
-        private int rollbackCount;
-
-        public string FilePath { get; }
-
-        public Config(string filePath)
-        {
-            FilePath = filePath;
-        }
-    }
-
     private Config _config;
 
     public Logger(Config config)
