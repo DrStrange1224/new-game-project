@@ -5,10 +5,10 @@ public class Logger
 {
     public class Config
     {
-        private string _filePath;
-        private string _fileName;
-        private bool _isRollback;
-        private int _rollbackCount;
+        private string filePath;
+        private string fileName;
+        private bool isRollback;
+        private int rollbackCount;
 
         public string FilePath
         {
