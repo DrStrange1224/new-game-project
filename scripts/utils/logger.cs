@@ -3,7 +3,7 @@ using System.IO;
 
 public class Logger
 {
-    public struct Config
+    public class Config
     {
         private string _filePath;
         private string _fileName;
