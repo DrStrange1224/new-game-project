@@ -10,10 +10,11 @@ public class Logger
         private bool isRollback;
         private int rollbackCount;
 
-        public string FilePath
+        public string FilePath { get; }
+
+        public Config(string filePath)
         {
-            get { }
-            set { }
+            FilePath = filePath;
         }
     }
 
