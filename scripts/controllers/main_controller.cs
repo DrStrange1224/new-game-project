@@ -1,25 +1,24 @@
+using System.Diagnostics.CodeAnalysis;
 using Godot;
+using Godot.Collections;
 
 public partial class main_controller : Node {
-    private const string LOG_PATH = "D:/godot_projects/new-game-project/logs"; //TODO clear hardcode
-    private const string LOG_NAME = "log.log";
+    private const string JSON_PROJECT_CONFIG_PATH = ".\\project.json";
     private Logger logger;
+    private Dictionary projectConfig;
+
+    private void setupProjectConfig() {
+        projectConfig = (Dictionary)GD.Load<Json>(JSON_PROJECT_CONFIG_PATH).Data;
+        logger = new Logger((Dictionary)((Dictionary)projectConfig["loggers"])["default"]);
+    }
 
     public override void _EnterTree() {
         base._EnterTree();
+        setupProjectConfig();
     }
 
     public override void _Ready() {
-        setupLogger();
-        logger.Log("Init log");
+        logger.Log("Init loggg");
         GD.Print("Hello");
-    }
-
-    public void setupLogger() {
-        Logger.Config config = new(
-            LOG_PATH,
-            LOG_NAME
-        );
-        logger = new Logger(config);
     }
 }

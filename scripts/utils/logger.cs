@@ -1,7 +1,6 @@
-using System;
 using System.IO;
-using System.Text;
 using Godot;
+using Godot.Collections;
 
 public class Logger {
     public readonly struct Config {
@@ -15,23 +14,23 @@ public class Logger {
     }
 
     public readonly Config config;
-    private DirectoryInfo _logsDirectory;
     private StreamWriter _streamWriter;
-    private Encoding encoding = new UTF8Encoding(true);
 
-    public Logger(Config config) {
-        this.config = config;
-        _logsDirectory = Directory.CreateDirectory(this.config.filePath);
-        GD.Print($"{_logsDirectory.FullName}\\{config.fileName}");
-        _streamWriter = new StreamWriter($"{_logsDirectory.FullName}\\{config.fileName}");
+    public Logger(Dictionary configDict) {
+        GD.Print(configDict.Keys);
+        config = new Config(
+            configDict["path"].ToString(),
+            $"{configDict["fileName"]}.{configDict["fileExtension"]}"
+        );
+        _streamWriter = new StreamWriter($"{config.filePath}\\{config.fileName}");
+    }
+
+    ~Logger() {
+        _streamWriter.Close();
     }
 
     public void Log(string message) {
         _streamWriter.WriteLine(message);
         _streamWriter.Flush();
-    }
-
-    ~Logger() {
-        _streamWriter.Close();
     }
 }
