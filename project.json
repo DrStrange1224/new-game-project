@@ -1,8 +1,8 @@
 {
     "loggers":{
-        "default":{
+        "default": {
             "path":".\\logs",
-            "fileName":"log",
+            "fileName":".log",
             "fileExtension":"log"
         }
     }
