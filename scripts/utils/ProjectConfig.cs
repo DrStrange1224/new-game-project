@@ -8,7 +8,7 @@ using System.Text.Json.Nodes;
 
 public static class ProjectConfig {
 
-    public static Dictionary<string, Logger> loggers;
+    public static Dictionary<string, Logger> loggers = [];
     private const string DEFAULT_LOGGER_NAME = "default";
 
     /// <summary>
