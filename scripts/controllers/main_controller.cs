@@ -12,24 +12,14 @@ public partial class MainController : Node {
     public string currentScreenName;
 
     public MainController() {
-        setupProjectConfig();
+        projectConfig = ProjectConfig.LoadJson(JSON_PROJECT_CONFIG_PATH);
+
+        logger = projectConfig.loggers["default"];
     }
 
     private void HandleException(Exception e) {
         GD.Print(e.Message);
         GetTree().Quit(1);
-    }
-
-    private void setupProjectConfig() {
-        try {
-            projectConfig = ProjectConfig.LoadJson(JSON_PROJECT_CONFIG_PATH);
-            logger = projectConfig.loggers["default"];
-            logger.Log("Ready function run");
-        }
-        catch (Exception e) {
-            HandleException(e);
-        }
-        GD.Print("Project config loaded. Now all logs will show at setted logs");
     }
 
     private void LoadScreen(string screenName) {
@@ -50,13 +40,8 @@ public partial class MainController : Node {
 
     public override void _Ready() {
         base._Ready();
-        try {
-            InitScreens();
-            LoadScreen("menu");
-        }
-        catch (Exception e) {
-            HandleException(e);
-        }
+        InitScreens();
+        LoadScreen("menu");
     }
 
 }
