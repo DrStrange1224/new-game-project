@@ -5,10 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://sv4s88imwno2" path="res://scenes/screens/menu.tscn" id="2_sugp2"]
 [ext_resource type="PackedScene" uid="uid://8q87djelhr4p" path="res://scenes/screens/game.tscn" id="4_tbgi4"]
 
-[node name="main" type="Node" unique_id=959949715]
+[node name="main" type="Node" unique_id=959949715 node_paths=PackedStringArray("screensNode")]
 script = ExtResource("1_jyhfs")
+screensNode = NodePath("screens")
 
-[node name="screen_switch_animation_player" type="AnimationPlayer" parent="." unique_id=834185436]
+[node name="screen_switch_anim_player" type="AnimationPlayer" parent="." unique_id=834185436]
 
 [node name="screens" type="Node" parent="." unique_id=1339540193]
 

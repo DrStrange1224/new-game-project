@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using Godot;
 
 public struct ProjectConfig {
 
@@ -25,7 +24,6 @@ public struct ProjectConfig {
     /// Loads default logger to <tt>ProjectConfig.loggers</tt> with <em>"logger"</em> key
     /// </summary>
     private void LoadDefaultLogger() {
-        GD.Print("Loading default logger");
         loggers = new Dictionary<string, Logger> {
             {"default", new Logger()}
         };
@@ -40,11 +38,9 @@ public struct ProjectConfig {
             LoadDefaultLogger();
             return;
         }
-        GD.Print("Loading loggers");
 
         var loggersObject = json["loggers"]!.AsObject();
         if (!loggersObject.ContainsKey("default")) {
-            GD.Print("No override for default logger found");
             LoadDefaultLogger();
             loggers.EnsureCapacity(loggersObject.Count + 1);
         }
@@ -53,19 +49,14 @@ public struct ProjectConfig {
         }
 
         foreach (var logger in loggersObject) {
-            GD.Print($"Got logger: {logger.Key}");
             loggers.Add(logger.Key, new Logger(logger.Value!.AsObject()));
         }
-
-        GD.Print("Loaded loggers");
-        GD.Print(loggers.Values);
     }
 
     public static ProjectConfig LoadJson(string path) {
         if (!File.Exists(path)) {
             throw new IOException($"json file not found at path: {path}");
         }
-        GD.Print("project.json exists");
         using FileStream fs = File.OpenRead(path);
         return new(JsonSerializer.Deserialize<JsonObject>(fs));
     }

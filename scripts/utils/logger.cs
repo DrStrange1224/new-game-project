@@ -3,8 +3,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using System.Text.Json.Nodes;
-using Godot;
-using Godot.Collections;
 
 public class Logger {
     public readonly struct Config {
@@ -19,13 +17,13 @@ public class Logger {
         [NotNull]
         public readonly string? FilePath {
             get => _filePath;
-            init => _filePath = value ?? _filePath;
+            init => _filePath = (string.IsNullOrWhiteSpace(value) ? null : value) ?? _filePath;
         }
 
         [NotNull]
         public readonly string? FileName {
             get => _fileName;
-            init => _fileName = value ?? _fileName;
+            init => _fileName = (string.IsNullOrWhiteSpace(value) ? null : value) ?? _fileName;
         }
 
         public readonly string FullPath {
