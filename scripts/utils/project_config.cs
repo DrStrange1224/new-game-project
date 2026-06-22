@@ -6,24 +6,15 @@ using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
-public struct ProjectConfig {
+public static class ProjectConfig {
 
-    public Dictionary<string, Logger> loggers;
+    public static Dictionary<string, Logger> loggers;
     private const string DEFAULT_LOGGER_NAME = "default";
-
-    private ProjectConfig(JsonObject? json) {
-        if (json == null) {
-            LoadDefaultLogger();
-        }
-        else {
-            LoadLoggers(json);
-        }
-    }
 
     /// <summary>
     /// Loads default logger to <tt>ProjectConfig.loggers</tt> with <em>"logger"</em> key
     /// </summary>
-    private void LoadDefaultLogger() {
+    private static void LoadDefaultLogger() {
         loggers = new Dictionary<string, Logger> {
             {"default", new Logger()}
         };
@@ -33,7 +24,7 @@ public struct ProjectConfig {
     /// Loads loggers from json file. Requires <em>"loggers"</em> key in json, else does nothing. Also can override <em>"default"</em> logger.
     /// </summary>
     /// <param name="json">json object containing <em>"loggers"</em> key</param>
-    private void LoadLoggers(JsonObject json) {
+    private static void LoadLoggers(JsonObject json) {
         if (!json.ContainsKey("loggers")) {
             LoadDefaultLogger();
             return;
@@ -53,11 +44,24 @@ public struct ProjectConfig {
         }
     }
 
-    public static ProjectConfig LoadJson(string path) {
+    private static void LoadDefaultSettings() {
+        LoadDefaultLogger();
+    }
+
+    private static void LoadSettings(JsonObject json) {
+        if (json["loggers"] != null) LoadLoggers(json["loggers"]!.AsObject());
+        else LoadDefaultLogger();
+    }
+
+    public static void LoadJson(string path) {
         if (!File.Exists(path)) {
             throw new IOException($"json file not found at path: {path}");
         }
+
         using FileStream fs = File.OpenRead(path);
-        return new(JsonSerializer.Deserialize<JsonObject>(fs));
+        JsonObject? json = JsonSerializer.Deserialize<JsonObject>(fs);
+
+        if (json == null) LoadDefaultSettings();
+        else LoadSettings(json);
     }
 }

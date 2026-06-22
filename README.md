@@ -7,3 +7,11 @@
         - scene2
         - ...
         - sceneN
+
+## Project.json
+
+### Keys:
+- "loggers"
+    - "{name_of_logger}"
+        - "path" - path to folder, where logs will be saved
+        - "fileName" - name of log file (with extension)

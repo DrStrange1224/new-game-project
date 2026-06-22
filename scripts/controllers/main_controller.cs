@@ -2,19 +2,20 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Godot;
+using Godot.Collections;
 
 public partial class MainController : Node {
     private const string JSON_PROJECT_CONFIG_PATH = @".\project.json";
     private Logger logger;
-    private ProjectConfig projectConfig;
-    private Node screensNode;
-    private Dictionary<string, Node> screensDict;
+    private Node? screensNode;
     public string currentScreenName;
 
-    public MainController() {
-        projectConfig = ProjectConfig.LoadJson(JSON_PROJECT_CONFIG_PATH);
+    [Export]
+    public Godot.Collections.Dictionary<string, Node?> screensDict;
 
-        logger = projectConfig.loggers["default"];
+    public MainController() {
+        ProjectConfig.LoadJson(JSON_PROJECT_CONFIG_PATH);
+        logger = ProjectConfig.loggers["default"];
     }
 
     private void HandleException(Exception e) {
